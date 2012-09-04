@@ -47,6 +47,7 @@ module CapistranoUnicorn
           _cset(:app_env) { (fetch(:rails_env) rescue 'production') }
           _cset(:unicorn_env) { fetch(:app_env) }
           _cset(:unicorn_bin, "unicorn")
+          _cset(:unicorn_hook, "unicorn:restart")
         end
 
         #
@@ -152,7 +153,7 @@ module CapistranoUnicorn
           end
         end
 
-        after "deploy:restart", "unicorn:restart"
+        after "deploy:restart", unicorn_hook
       end
     end
   end
